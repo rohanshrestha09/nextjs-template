@@ -1,5 +1,5 @@
 import type { GetServerSidePropsContext } from 'next';
-import { createContext } from 'react';
+import { createContext, useContext } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { getAuth } from 'api/auth';
 import { AUTH } from 'constants/queryKeys';
@@ -24,6 +24,8 @@ const Auth: React.FC<Props> = ({ children }) => {
    );
 };
 
+export const useAuth = () => useContext(AuthContext);
+
 export const withAuth = (
    gssp: (
       context: GetServerSidePropsContext
@@ -37,7 +39,7 @@ export const withAuth = (
       if (!token) {
          return {
             redirect: {
-               destination: '/fallback',
+               destination: '/',
             },
          };
       }
