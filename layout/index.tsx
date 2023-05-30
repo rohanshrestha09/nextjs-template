@@ -26,7 +26,7 @@ const AppLayout: React.FC<Props> = ({ children }) => {
          <Header>Header</Header>
 
          <Layout hasSider>
-            <Affix ref={sidebarAffix} offsetTop={1}>
+            <Affix ref={sidebarAffix} className='affix' offsetTop={1}>
                <Sider>Sider</Sider>
             </Affix>
 

@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+   font-family: 'Poppins', sans-serif;
+}
+
+.ant-layout {
+   &-header {
+      background-color: white;
+   }
+
+   .ant-layout {
+      .affix {
+         background-color: white;
+         .ant-layout-sider {
+            background-color: white;
+         }
+      }
+
+      &-content {
+         background-color: white;
+      }
+   }
+}

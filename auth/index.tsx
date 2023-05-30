@@ -53,5 +53,20 @@ export const withAuth = (
       }
    };
 };
+export const withoutAuth = (
+   gssp: (
+      context: GetServerSidePropsContext
+   ) => Promise<TGetServerSidePropsReturnType>
+) => {
+   return async (context: GetServerSidePropsContext) => {
+      try {
+         const { props } = await gssp(context);
+
+         return { props };
+      } catch (err) {
+         return { notFound: true };
+      }
+   };
+};
 
 export default Auth;
