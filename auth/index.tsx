@@ -1,6 +1,6 @@
 import type { GetServerSidePropsContext } from 'next';
 import { createContext, useContext } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { dehydrate, QueryClient, useQuery } from '@tanstack/react-query';
 import { getAuth } from 'api/auth';
 import { queryKeys } from 'utils';
 import { AUTH } from 'constants/queryKeys';
@@ -29,10 +29,13 @@ export const useAuth = () => useContext(AuthContext);
 
 export const withAuth = (
    gssp: (
-      context: GetServerSidePropsContext
+      context: GetServerSidePropsContext,
+      queryClient: QueryClient
    ) => Promise<TGetServerSidePropsReturnType>
 ) => {
    return async (context: GetServerSidePropsContext) => {
+      const queryClient = new QueryClient();
+
       const { req } = context;
 
       const { token } = req.cookies;
@@ -46,9 +49,14 @@ export const withAuth = (
       }
 
       try {
-         const { props } = await gssp(context);
+         const { props } = await gssp(context, queryClient);
 
-         return { props };
+         return {
+            props: {
+               ...props,
+               dehydratedState: dehydrate(queryClient),
+            },
+         };
       } catch (err) {
          return { notFound: true };
       }
@@ -56,14 +64,22 @@ export const withAuth = (
 };
 export const withoutAuth = (
    gssp: (
-      context: GetServerSidePropsContext
+      context: GetServerSidePropsContext,
+      queryClient: QueryClient
    ) => Promise<TGetServerSidePropsReturnType>
 ) => {
    return async (context: GetServerSidePropsContext) => {
-      try {
-         const { props } = await gssp(context);
+      const queryClient = new QueryClient();
 
-         return { props };
+      try {
+         const { props } = await gssp(context, queryClient);
+
+         return {
+            props: {
+               ...props,
+               dehydratedState: dehydrate(queryClient),
+            },
+         };
       } catch (err) {
          return { notFound: true };
       }

@@ -1,4 +1,3 @@
-import type { DehydratedState } from '@tanstack/react-query';
 import { IUser } from './models';
 
 export interface IContext {
@@ -6,5 +5,5 @@ export interface IContext {
 }
 
 export type TGetServerSidePropsReturnType = {
-   props: { dehydratedState: DehydratedState };
+   props: object;
 };

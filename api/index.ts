@@ -5,9 +5,9 @@ const axios = Axios.create();
 
 axios.interceptors.request.use(
    (config) => {
-      const auth_token = Cookies.get('token');
+      const token = Cookies.get('token');
 
-      config.headers['Authorization'] = 'Bearer ' + auth_token;
+      config.headers['Authorization'] = 'Bearer ' + token;
 
       config.withCredentials = true;
 
