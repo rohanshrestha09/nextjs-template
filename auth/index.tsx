@@ -2,6 +2,7 @@ import type { GetServerSidePropsContext } from 'next';
 import { createContext, useContext } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { getAuth } from 'api/auth';
+import { queryKeys } from 'utils/queryKey';
 import { AUTH } from 'constants/queryKeys';
 import type { IContext, TGetServerSidePropsReturnType } from 'interface';
 
@@ -14,7 +15,7 @@ interface Props {
 const Auth: React.FC<Props> = ({ children }) => {
    const { data: authUser } = useQuery({
       queryFn: getAuth,
-      queryKey: [AUTH],
+      queryKey: queryKeys(AUTH).details(),
    });
 
    return (

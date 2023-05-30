@@ -3,6 +3,7 @@ import { Fragment } from 'react';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
 import { useAuth, withAuth } from 'auth';
 import { getAuth } from 'api/auth';
+import { queryKeys } from 'utils/queryKey';
 import { AUTH } from 'constants/queryKeys';
 
 export default function Home() {
@@ -32,7 +33,7 @@ export const getServerSideProps = withAuth(async () => {
 
    await queryClient.prefetchQuery({
       queryFn: getAuth,
-      queryKey: [AUTH],
+      queryKey: queryKeys(AUTH).details(),
    });
 
    return {
