@@ -2,7 +2,7 @@ import type { GetServerSidePropsContext } from 'next';
 import { createContext, useContext } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { getAuth } from 'api/auth';
-import { queryKeys } from 'utils/queryKey';
+import { queryKeys } from 'utils';
 import { AUTH } from 'constants/queryKeys';
 import type { IContext, TGetServerSidePropsReturnType } from 'interface';
 

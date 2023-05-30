@@ -3,7 +3,7 @@ import { Fragment } from 'react';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
 import { useAuth, withAuth } from 'auth';
 import { getAuth } from 'api/auth';
-import { queryKeys } from 'utils/queryKey';
+import { queryKeys } from '@/utils';
 import { AUTH } from 'constants/queryKeys';
 
 export default function Home() {
